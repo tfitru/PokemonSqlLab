@@ -1,0 +1,830 @@
+Part 2: Simple Selects and Counts
+
+1. mysql> select name from types;
++----------+
+| name     |
++----------+
+| Normal   |
+| Water    |
+| Grass    |
+| Rock     |
+| Fire     |
+| Ground   |
+| Poison   |
+| Bug      |
+| Electric |
+| Dragon   |
+| Steel    |
+| Dark     |
+| Fighting |
+| Psychic  |
+| Ghost    |
+| Fairy    |
+| Ice      |
+| Flying   |
++----------+
+18 rows in set (0.01 sec)
+
+2. mysql> select * from pokemons where id=45;
++----+-------+--------------+----------------+
+| id | name  | primary_type | secondary_type |
++----+-------+--------------+----------------+
+| 45 | Eevee |            1 |           NULL |
++----+-------+--------------+----------------+
+1 row in set (0.02 sec)
+
+3. mysql> Select COUNT(*) from pokemons;
++----------+
+| COUNT(*) |
++----------+
+|      656 |
++----------+
+1 row in set (0.05 sec)
+656 rows in set (0.00 sec)
+
+4. 
+mysql> select COUNT(*) from types;
++----------+
+| COUNT(*) |
++----------+
+|       18 |
++----------+
+1 row in set (0.07 sec)
+
+5.
+mysql> select COUNT(*) from pokemons where secondary_type is not null;
++----------+
+| COUNT(*) |
++----------+
+|      316 |
++----------+
+1 row in set (0.02 sec)
+
+Part 3: Joins and Groups
+
+1. mysql> select pokemons.primary_type, types.name, pokemons.name from pokemons join types ON pokemons.primary_type = types.id;
++--------------+----------+-------------+
+| primary_type | name     | name        |
++--------------+----------+-------------+
+|            1 | Normal   | Smeargle    |
+|            2 | Water    | Wailord     |
+|            3 | Grass    | Vileplume   |
+|            4 | Rock     | Armaldo     |
+|            4 | Rock     | Cradily     |
+|            2 | Water    | Carvanha    |
+|            5 | Fire     | Numel       |
+|            6 | Ground   | Sandslash   |
+|            5 | Fire     | Ninetales   |
+|            3 | Grass    | Weepinbell  |
+|            3 | Grass    | Gloom       |
+|            3 | Grass    | Ivysaur     |
+|            7 | Poison   | Nidorino    |
+|            7 | Poison   | Nidoking    |
+|            6 | Ground   | Dugtrio     |
+|            6 | Ground   | Rhyhorn     |
+|            1 | Normal   | Persian     |
+|            2 | Water    | Wartortle   |
+|            5 | Fire     | Charmeleon  |
+|            5 | Fire     | Charizard   |
+|            3 | Grass    | Exeggutor   |
+|            2 | Water    | Cloyster    |
+|            5 | Fire     | Arcanine    |
+|            8 | Bug      | Parasect    |
+|            2 | Water    | Dewgong     |
+|            1 | Normal   | Chansey     |
+|            2 | Water    | Kingler     |
+|            2 | Water    | Tentacruel  |
+|            2 | Water    | Blastoise   |
+|            3 | Grass    | Bellsprout  |
+|            3 | Grass    | Victreebel  |
+|            5 | Fire     | Rapidash    |
+|            9 | Electric | Magneton    |
+|            2 | Water    | Quagsire    |
+|            3 | Grass    | Exeggcute   |
+|            2 | Water    | Horsea      |
+|            9 | Electric | Electrode   |
+|            2 | Water    | Starmie     |
+|            2 | Water    | Seadra      |
+|            8 | Bug      | Butterfree  |
+|            3 | Grass    | Bellossom   |
+|           10 | Dragon   | Dragonair   |
+|            2 | Water    | Poliwhirl   |
+|            5 | Fire     | Flareon     |
+|            1 | Normal   | Eevee       |
+|            2 | Water    | Vaporeon    |
+|            9 | Electric | Jolteon     |
+|            2 | Water    | Goldeen     |
+|            2 | Water    | Seaking     |
+|            2 | Water    | Golduck     |
+|            2 | Water    | Staryu      |
+|            9 | Electric | Pikachu     |
+|            2 | Water    | Shellder    |
+|            2 | Water    | Marill      |
+|            3 | Grass    | Skiploom    |
+|           10 | Dragon   | Dratini     |
+|            3 | Grass    | Bulbasaur   |
+|            3 | Grass    | Venusaur    |
+|            5 | Fire     | Charmander  |
+|            2 | Water    | Squirtle    |
+|            7 | Poison   | Nidoqueen   |
+|            1 | Normal   | Pidgeot     |
+|            9 | Electric | Electabuzz  |
+|            3 | Grass    | Tangela     |
+|            1 | Normal   | Tauros      |
+|            9 | Electric | Manectric   |
+|            7 | Poison   | Muk         |
+|            2 | Water    | Azumarill   |
+|            1 | Normal   | Zangoose    |
+|            2 | Water    | Wingull     |
+|            3 | Grass    | Roselia     |
+|            2 | Water    | Pelipper    |
+|            5 | Fire     | Camerupt    |
+|           11 | Steel    | Mawile      |
+|           12 | Dark     | Sableye     |
+|            1 | Normal   | Swellow     |
+|            6 | Ground   | Trapinch    |
+|            2 | Water    | Wailmer     |
+|            3 | Grass    | Shiftry     |
+|            3 | Grass    | Cacturne    |
+|           11 | Steel    | Lairon      |
+|            1 | Normal   | Linoone     |
+|            2 | Water    | Milotic     |
+|            1 | Normal   | Delcatty    |
+|            4 | Rock     | Nosepass    |
+|           13 | Fighting | Medicham    |
+|            2 | Water    | Ludicolo    |
+|            1 | Normal   | Kecleon     |
+|            4 | Rock     | Graveler    |
+|            1 | Normal   | Loudred     |
+|            1 | Normal   | Dodrio      |
+|           14 | Psychic  | Kadabra     |
+|            6 | Ground   | Claydol     |
+|            2 | Water    | Sharpedo    |
+|            5 | Fire     | Magcargo    |
+|            9 | Electric | Electrike   |
+|           13 | Fighting | Makuhita    |
+|           13 | Fighting | Hariyama    |
+|            1 | Normal   | Wigglytuff  |
+|            1 | Normal   | Vigoroth    |
+|           11 | Steel    | Skarmory    |
+|            1 | Normal   | Spinda      |
+|            1 | Normal   | Exploud     |
+|            1 | Normal   | Slaking     |
+|            2 | Water    | Lanturn     |
+|            1 | Normal   | Slakoth     |
+|           12 | Dark     | Absol       |
+|            3 | Grass    | Tropius     |
+|           14 | Psychic  | Gardevoir   |
+|            5 | Fire     | Torkoal     |
+|            4 | Rock     | Lunatone    |
+|            4 | Rock     | Solrock     |
+|           15 | Ghost    | Dusclops    |
+|            4 | Rock     | Tyranitar   |
+|           16 | Fairy    | Clefairy    |
+|            1 | Normal   | Jigglypuff  |
+|            2 | Water    | Kingdra     |
+|            8 | Bug      | Paras       |
+|            2 | Water    | Lapras      |
+|            6 | Ground   | Rhydon      |
+|            2 | Water    | Slowbro     |
+|            1 | Normal   | Ursaring    |
+|           13 | Fighting | Machoke     |
+|            1 | Normal   | Kangaskhan  |
+|           13 | Fighting | Machamp     |
+|            3 | Grass    | Oddish      |
+|            1 | Normal   | Girafarig   |
+|            5 | Fire     | Ponyta      |
+|            5 | Fire     | Vulpix      |
+|            1 | Normal   | Raticate    |
+|            6 | Ground   | Marowak     |
+|            7 | Poison   | Nidorina    |
+|            4 | Rock     | Onix        |
+|            4 | Rock     | Aerodactyl  |
+|           12 | Dark     | Sneasel     |
+|           15 | Ghost    | Gastly      |
+|           15 | Ghost    | Haunter     |
+|           15 | Ghost    | Gengar      |
+|            3 | Grass    | Grotle      |
+|            3 | Grass    | Snover      |
+|            1 | Normal   | Ambipom     |
+|            9 | Electric | Raichu      |
+|            2 | Water    | Gastrodon   |
+|            9 | Electric | Pachirisu   |
+|            1 | Normal   | Blissey     |
+|            4 | Rock     | Sudowoodo   |
+|           15 | Ghost    | Misdreavus  |
+|           15 | Ghost    | Drifblim    |
+|            7 | Poison   | Skorupi     |
+|           11 | Steel    | Steelix     |
+|            1 | Normal   | Lopunny     |
+|            6 | Ground   | Hippopotas  |
+|           12 | Dark     | Mightyena   |
+|           14 | Psychic  | Kirlia      |
+|            9 | Electric | Flaaffy     |
+|            9 | Electric | Ampharos    |
+|            5 | Fire     | Monferno    |
+|            2 | Water    | Gyarados    |
+|            9 | Electric | Luxio       |
+|            8 | Bug      | Mothim      |
+|           10 | Dragon   | Salamence   |
+|           12 | Dark     | Honchkrow   |
+|            1 | Normal   | Staravia    |
+|           11 | Steel    | Metagross   |
+|            7 | Poison   | Drapion     |
+|            2 | Water    | Floatzel    |
+|            1 | Normal   | Stantler    |
+|            3 | Grass    | Carnivine   |
+|           13 | Fighting | Primeape    |
+|            1 | Normal   | Glameow     |
+|            1 | Normal   | Purugly     |
+|           14 | Psychic  | Alakazam    |
+|            8 | Bug      | Yanma       |
+|            1 | Normal   | Bibarel     |
+|            8 | Bug      | Beautifly   |
+|            1 | Normal   | Meowth      |
+|           14 | Psychic  | Hypno       |
+|            1 | Normal   | Dunsparce   |
+|            8 | Bug      | Scyther     |
+|            4 | Rock     | Rampardos   |
+|            8 | Bug      | Pinsir      |
+|            1 | Normal   | Lickitung   |
+|            1 | Normal   | Miltank     |
+|           16 | Fairy    | Granbull    |
+|            3 | Grass    | Cherrim     |
+|            4 | Rock     | Larvitar    |
+|           16 | Fairy    | Clefable    |
+|            3 | Grass    | Torterra    |
+|           17 | Ice      | Glalie      |
+|            7 | Poison   | Crobat      |
+|            1 | Normal   | Aipom       |
+|            8 | Bug      | Beedrill    |
+|            1 | Normal   | Porygon2    |
+|           11 | Steel    | Bronzor     |
+|           17 | Ice      | Snorunt     |
+|            8 | Bug      | Scizor      |
+|            7 | Poison   | Swalot      |
+|            9 | Electric | Magnezone   |
+|            5 | Fire     | Magmar      |
+|            9 | Electric | Electivire  |
+|            5 | Fire     | Magmortar   |
+|            6 | Ground   | Gligar      |
+|            2 | Water    | Buizel      |
+|            6 | Ground   | Gliscor     |
+|            4 | Rock     | Probopass   |
+|           13 | Fighting | Tyrogue     |
+|           13 | Fighting | Hitmonchan  |
+|           17 | Ice      | Piloswine   |
+|            1 | Normal   | Staraptor   |
+|            3 | Grass    | Jumpluff    |
+|           15 | Ghost    | Banette     |
+|           14 | Psychic  | Ralts       |
+|            3 | Grass    | Roserade    |
+|            1 | Normal   | Lickilicky  |
+|            3 | Grass    | Abomasnow   |
+|           11 | Steel    | Metang      |
+|            7 | Poison   | Seviper     |
+|            9 | Electric | Luxray      |
+|            1 | Normal   | Buneary     |
+|           17 | Ice      | Mamoswine   |
+|            6 | Ground   | Vibrava     |
+|            6 | Ground   | Flygon      |
+|            3 | Grass    | Nuzleaf     |
+|            4 | Rock     | Pupitar     |
+|            9 | Electric | Magnemite   |
+|            9 | Electric | Mareep      |
+|            5 | Fire     | Growlithe   |
+|            2 | Water    | Slowking    |
+|            6 | Ground   | Drilbur     |
+|            9 | Electric | Zebstrika   |
+|           14 | Psychic  | Swoobat     |
+|            1 | Normal   | Stoutland   |
+|            1 | Normal   | Furret      |
+|           10 | Dragon   | Gabite      |
+|           14 | Psychic  | Grumpig     |
+|           17 | Ice      | Vanillish   |
+|           14 | Psychic  | Gothorita   |
+|           14 | Psychic  | Duosion     |
+|            3 | Grass    | Simisage    |
+|            5 | Fire     | Simisear    |
+|            2 | Water    | Simipour    |
+|            8 | Bug      | Galvantula  |
+|            1 | Normal   | Sawsbuck    |
+|            2 | Water    | Jellicent   |
+|           10 | Dragon   | Fraxure     |
+|            3 | Grass    | Whimsicott  |
+|            2 | Water    | Tirtouga    |
+|           12 | Dark     | Deino       |
+|           10 | Dragon   | Druddigon   |
+|           11 | Steel    | Klang       |
+|            2 | Water    | Seismitoad  |
+|            8 | Bug      | Scolipede   |
+|           13 | Fighting | Mienfoo     |
+|           14 | Psychic  | Elgyem      |
+|           12 | Dark     | Pawniard    |
+|           12 | Dark     | Liepard     |
+|            1 | Normal   | Watchog     |
+|            2 | Water    | Alomomola   |
+|           11 | Steel    | Klinklang   |
+|           14 | Psychic  | Beheeyem    |
+|           17 | Ice      | Cubchoo     |
+|            8 | Bug      | Leavanny    |
+|            4 | Rock     | Archen      |
+|            9 | Electric | Eelektrik   |
+|            8 | Bug      | Accelgor    |
+|           14 | Psychic  | Espeon      |
+|           17 | Ice      | Walrein     |
+|           14 | Psychic  | Gallade     |
+|           17 | Ice      | Jynx        |
+|            9 | Electric | Rotom       |
+|           14 | Psychic  | Gothita     |
+|            3 | Grass    | Lilligant   |
+|            2 | Water    | Ducklett    |
+|            6 | Ground   | Krokorok    |
+|            2 | Water    | Palpitoad   |
+|           15 | Ghost    | Lampent     |
+|            1 | Normal   | Unfezant    |
+|           10 | Dragon   | Axew        |
+|            6 | Ground   | Golurk      |
+|           14 | Psychic  | Sigilyph    |
+|            3 | Grass    | Tangrowth   |
+|            5 | Fire     | Heatmor     |
+|           12 | Dark     | Umbreon     |
+|           15 | Ghost    | Mismagius   |
+|           11 | Steel    | Klink       |
+|            2 | Water    | Mantine     |
+|            2 | Water    | Basculin    |
+|            9 | Electric | Emolga      |
+|            1 | Normal   | Herdier     |
+|            6 | Ground   | Excadrill   |
+|            2 | Water    | Swanna      |
+|           12 | Dark     | Mandibuzz   |
+|            7 | Poison   | Toxicroak   |
+|            1 | Normal   | Braviary    |
+|           15 | Ghost    | Cofagrigus  |
+|           17 | Ice      | Beartic     |
+|            8 | Bug      | Durant      |
+|            3 | Grass    | Ferroseed   |
+|            3 | Grass    | Ferrothorn  |
+|           13 | Fighting | Lucario     |
+|           12 | Dark     | Weavile     |
+|            7 | Poison   | Weezing     |
+|           11 | Steel    | Bronzong    |
+|            9 | Electric | Eelektross  |
+|           11 | Steel    | Doublade    |
+|           15 | Ghost    | Chandelure  |
+|            8 | Bug      | Crustle     |
+|            1 | Normal   | Doduo       |
+|            9 | Electric | Helioptile  |
+|            4 | Rock     | Carbink     |
+|           17 | Ice      | Cryogonal   |
+|           17 | Ice      | Vanilluxe   |
+|           17 | Ice      | Delibird    |
+|            6 | Ground   | Rhyperior   |
+|            8 | Bug      | Masquerain  |
+|            4 | Rock     | Golem       |
+|           17 | Ice      | Froslass    |
+|            8 | Bug      | Shedinja    |
+|            3 | Grass    | Breloom     |
+|           10 | Dragon   | Bagon       |
+|            5 | Fire     | Talonflame  |
+|           10 | Dragon   | Haxorus     |
+|            5 | Fire     | Slugma      |
+|           10 | Dragon   | Goomy       |
+|           16 | Fairy    | Sylveon     |
+|            7 | Poison   | Grimer      |
+|           10 | Dragon   | Goodra      |
+|            1 | Normal   | Fearow      |
+|            7 | Poison   | Garbodor    |
+|            2 | Water    | Slowpoke    |
+|            6 | Ground   | Sandshrew   |
+|            2 | Water    | Psyduck     |
+|            2 | Water    | Poliwag     |
+|            6 | Ground   | Diglett     |
+|            2 | Water    | Seel        |
+|            9 | Electric | Voltorb     |
+|            1 | Normal   | Ditto       |
+|            7 | Poison   | Koffing     |
+|            5 | Fire     | Moltres     |
+|            4 | Rock     | Kabutops    |
+|           10 | Dragon   | Dragonite   |
+|            1 | Normal   | Snorlax     |
+|            4 | Rock     | Omastar     |
+|            2 | Water    | Poliwrath   |
+|           14 | Psychic  | Mew         |
+|            9 | Electric | Zapdos      |
+|            2 | Water    | Remoraid    |
+|            2 | Water    | Politoed    |
+|            8 | Bug      | Venonat     |
+|           14 | Psychic  | Celebi      |
+|            9 | Electric | Raikou      |
+|            3 | Grass    | Chikorita   |
+|            2 | Water    | Totodile    |
+|            5 | Fire     | Cyndaquil   |
+|            3 | Grass    | Bayleef     |
+|            2 | Water    | Croconaw    |
+|            5 | Fire     | Quilava     |
+|            4 | Rock     | Anorith     |
+|            3 | Grass    | Sunkern     |
+|            3 | Grass    | Hoppip      |
+|            2 | Water    | Luvdisc     |
+|            1 | Normal   | Hoothoot    |
+|            3 | Grass    | Treecko     |
+|            3 | Grass    | Sunflora    |
+|            1 | Normal   | Taillow     |
+|           16 | Fairy    | Togepi      |
+|            8 | Bug      | Surskit     |
+|            5 | Fire     | Blaziken    |
+|            3 | Grass    | Sceptile    |
+|            2 | Water    | Swampert    |
+|           10 | Dragon   | Altaria     |
+|            2 | Water    | Mudkip      |
+|            7 | Poison   | Zubat       |
+|            3 | Grass    | Cacnea      |
+|            2 | Water    | Barboach    |
+|            3 | Grass    | Seedot      |
+|            5 | Fire     | Typhlosion  |
+|            2 | Water    | Feraligatr  |
+|            3 | Grass    | Meganium    |
+|           11 | Steel    | Jirachi     |
+|           14 | Psychic  | Xatu        |
+|           10 | Dragon   | Latias      |
+|            8 | Bug      | Illumise    |
+|            5 | Fire     | Entei       |
+|            2 | Water    | Gorebyss    |
+|            2 | Water    | Suicune     |
+|           11 | Steel    | Aggron      |
+|            6 | Ground   | Donphan     |
+|            7 | Poison   | Golbat      |
+|            1 | Normal   | Noctowl     |
+|            8 | Bug      | Forretress  |
+|           12 | Dark     | Houndoom    |
+|            1 | Normal   | Castform    |
+|           10 | Dragon   | Rayquaza    |
+|            2 | Water    | Huntail     |
+|            8 | Bug      | Volbeat     |
+|            8 | Bug      | Dustox      |
+|            8 | Bug      | Ledian      |
+|            8 | Bug      | Ariados     |
+|            2 | Water    | Relicanth   |
+|            2 | Water    | Octillery   |
+|            2 | Water    | Lombre      |
+|            2 | Water    | Clamperl    |
+|            1 | Normal   | Teddiursa   |
+|            8 | Bug      | Nincada     |
+|           17 | Ice      | Swinub      |
+|            1 | Normal   | Sentret     |
+|            8 | Bug      | Pineco      |
+|            1 | Normal   | Skitty      |
+|            1 | Normal   | Zigzagoon   |
+|            8 | Bug      | Heracross   |
+|           14 | Psychic  | Wobbuffet   |
+|           17 | Ice      | Regice      |
+|            1 | Normal   | Swablu      |
+|            9 | Electric | Plusle      |
+|            9 | Electric | Minun       |
+|           14 | Psychic  | Spoink      |
+|            2 | Water    | Qwilfish    |
+|            5 | Fire     | Combusken   |
+|            1 | Normal   | Azurill     |
+|            1 | Normal   | Igglybuff   |
+|           16 | Fairy    | Togetic     |
+|            2 | Water    | Corsola     |
+|            6 | Ground   | Baltoy      |
+|           17 | Ice      | Articuno    |
+|            4 | Rock     | Lileep      |
+|           14 | Psychic  | Chimecho    |
+|           12 | Dark     | Murkrow     |
+|           17 | Ice      | Sealeo      |
+|            8 | Bug      | Ledyba      |
+|           10 | Dragon   | Sliggoo     |
+|            2 | Water    | Lumineon    |
+|           10 | Dragon   | Shelgon     |
+|           12 | Dark     | Poochyena   |
+|            2 | Water    | Corphish    |
+|            6 | Ground   | Phanpy      |
+|            1 | Normal   | Whismur     |
+|            4 | Rock     | Regirock    |
+|           11 | Steel    | Registeel   |
+|            6 | Ground   | Groudon     |
+|            8 | Bug      | Shuckle     |
+|           13 | Fighting | Hitmontop   |
+|            4 | Rock     | Geodude     |
+|            3 | Grass    | Grovyle     |
+|            2 | Water    | Marshtomp   |
+|           11 | Steel    | Beldum      |
+|           14 | Psychic  | Wynaut      |
+|            2 | Water    | Lotad       |
+|           13 | Fighting | Machop      |
+|            3 | Grass    | Shroomish   |
+|            3 | Grass    | Turtwig     |
+|            3 | Grass    | Budew       |
+|            8 | Bug      | Combee      |
+|            3 | Grass    | Cherubi     |
+|            3 | Grass    | Gogoat      |
+|            4 | Rock     | Bonsly      |
+|            8 | Bug      | Kricketune  |
+|           14 | Psychic  | Abra        |
+|            8 | Bug      | Ninjask     |
+|            2 | Water    | Wooper      |
+|           10 | Dragon   | Latios      |
+|           14 | Psychic  | Natu        |
+|           17 | Ice      | Spheal      |
+|            2 | Water    | Whiscash    |
+|           15 | Ghost    | Shuppet     |
+|           13 | Fighting | Meditite    |
+|            8 | Bug      | Cascoon     |
+|            2 | Water    | Feebas      |
+|            2 | Water    | Chinchou    |
+|           11 | Steel    | Aron        |
+|            5 | Fire     | Torchic     |
+|            5 | Fire     | Fletchinder |
+|           12 | Dark     | Bisharp     |
+|            5 | Fire     | Pansear     |
+|            2 | Water    | Panpour     |
+|           13 | Fighting | Sawk        |
+|           13 | Fighting | Throh       |
+|            5 | Fire     | Darumaka    |
+|            1 | Normal   | Bouffalant  |
+|            4 | Rock     | Boldore     |
+|            4 | Rock     | Gigalith    |
+|            1 | Normal   | Minccino    |
+|           12 | Dark     | Scraggy     |
+|            3 | Grass    | Cottonee    |
+|            3 | Grass    | Maractus    |
+|            1 | Normal   | Porygon-Z   |
+|            1 | Normal   | Pidove      |
+|            3 | Grass    | Petilil     |
+|            1 | Normal   | Tranquill   |
+|           14 | Psychic  | Munna       |
+|            8 | Bug      | Swadloon    |
+|            8 | Bug      | Dwebble     |
+|            7 | Poison   | Croagunk    |
+|            9 | Electric | Blitzle     |
+|            6 | Ground   | Sandile     |
+|            6 | Ground   | Cubone      |
+|            4 | Rock     | Omanyte     |
+|            4 | Rock     | Shieldon    |
+|            4 | Rock     | Archeops    |
+|            2 | Water    | Mantyke     |
+|           17 | Ice      | Vanillite   |
+|           14 | Psychic  | Woobat      |
+|           13 | Fighting | Riolu       |
+|           13 | Fighting | Timburr     |
+|            4 | Rock     | Kabuto      |
+|            4 | Rock     | Cranidos    |
+|            2 | Water    | Carracosta  |
+|            1 | Normal   | Fletchling  |
+|            1 | Normal   | Bunnelby    |
+|            3 | Grass    | Pansage     |
+|            2 | Water    | Tentacool   |
+|           16 | Fairy    | Snubbull    |
+|           12 | Dark     | Houndour    |
+|            2 | Water    | Clauncher   |
+|            8 | Bug      | Scatterbug  |
+|            8 | Bug      | Burmy       |
+|            1 | Normal   | Bidoof      |
+|            7 | Poison   | Dragalge    |
+|           11 | Steel    | Klefki      |
+|           11 | Steel    | Cobalion    |
+|            4 | Rock     | Terrakion   |
+|            3 | Grass    | Virizion    |
+|           12 | Dark     | Scrafty     |
+|           13 | Fighting | Gurdurr     |
+|           13 | Fighting | Mienshao    |
+|           13 | Fighting | Hitmonlee   |
+|           13 | Fighting | Conkeldurr  |
+|           13 | Fighting | Hawlucha    |
+|            1 | Normal   | Rattata     |
+|            1 | Normal   | Pidgeotto   |
+|            2 | Water    | Finneon     |
+|            9 | Electric | Elekid      |
+|           14 | Psychic  | Espurr      |
+|            6 | Ground   | Krookodile  |
+|            2 | Water    | Krabby      |
+|            1 | Normal   | Pidgey      |
+|            8 | Bug      | Wurmple     |
+|            2 | Water    | Crawdaunt   |
+|            7 | Poison   | Stunky      |
+|           15 | Ghost    | Drifloon    |
+|            5 | Fire     | Magby       |
+|            7 | Poison   | Gulpin      |
+|            7 | Poison   | Arbok       |
+|            8 | Bug      | Joltik      |
+|            7 | Poison   | Ekans       |
+|           13 | Fighting | Mankey      |
+|            8 | Bug      | Venomoth    |
+|            1 | Normal   | Spearow     |
+|            1 | Normal   | Starly      |
+|            5 | Fire     | Infernape   |
+|            4 | Rock     | Roggenrola  |
+|           13 | Fighting | Pangoro     |
+|           17 | Ice      | Smoochum    |
+|            2 | Water    | Kyogre      |
+|            8 | Bug      | Silcoon     |
+|           14 | Psychic  | Mewtwo      |
+|            6 | Ground   | Golett      |
+|           10 | Dragon   | Garchomp    |
+|            8 | Bug      | Volcarona   |
+|            1 | Normal   | Audino      |
+|           16 | Fairy    | Togekiss    |
+|           15 | Ghost    | Dusknoir    |
+|           12 | Dark     | Hydreigon   |
+|            5 | Fire     | Heatran     |
+|           14 | Psychic  | Cresselia   |
+|           14 | Psychic  | Musharna    |
+|            8 | Bug      | Weedle      |
+|            8 | Bug      | Caterpie    |
+|            8 | Bug      | Kakuna      |
+|            8 | Bug      | Metapod     |
+|            8 | Bug      | Kricketot   |
+|            2 | Water    | Magikarp    |
+|            8 | Bug      | Spinarak    |
+|            8 | Bug      | Vespiquen   |
+|           14 | Psychic  | Drowzee     |
+|            9 | Electric | Shinx       |
+|            5 | Fire     | Chimchar    |
+|            7 | Poison   | Skuntank    |
+|            8 | Bug      | Sewaddle    |
+|           16 | Fairy    | Cleffa      |
+|            9 | Electric | Pichu       |
+|           15 | Ghost    | Duskull     |
+|           14 | Psychic  | Unown       |
+|            1 | Normal   | Munchlax    |
+|            1 | Normal   | Porygon     |
+|           10 | Dragon   | Gible       |
+|            2 | Water    | Prinplup    |
+|            8 | Bug      | Whirlipede  |
+|           18 | Flying   | Noivern     |
+|            5 | Fire     | Pyroar      |
+|           16 | Fairy    | Florges     |
+|            2 | Water    | Clawitzer   |
+|            4 | Rock     | Barbaracle  |
+|            9 | Electric | Dedenne     |
+|           16 | Fairy    | Floette     |
+|           16 | Fairy    | Slurpuff    |
+|           16 | Fairy    | Aromatisse  |
+|            2 | Water    | Shellos     |
+|            6 | Ground   | Stunfisk    |
+|            2 | Water    | Frillish    |
+|            6 | Ground   | Hippowdon   |
+|            1 | Normal   | Chatot      |
+|            1 | Normal   | Lillipup    |
+|            8 | Bug      | Venipede    |
+|            4 | Rock     | Bastiodon   |
+|            9 | Electric | Tynamo      |
+|            1 | Normal   | Diggersby   |
+|           14 | Psychic  | Chingling   |
+|            7 | Poison   | Trubbish    |
+|            1 | Normal   | Cinccino    |
+|           17 | Ice      | Glaceon     |
+|            3 | Grass    | Leafeon     |
+|            1 | Normal   | Regigigas   |
+|           12 | Dark     | Purrloin    |
+|            7 | Poison   | Nidoran     |
+|            1 | Normal   | Deerling    |
+|            8 | Bug      | Shelmet     |
+|            1 | Normal   | Patrat      |
+|            8 | Bug      | Escavalier  |
+|           17 | Ice      | Avalugg     |
+|            8 | Bug      | Vivillon    |
+|            9 | Electric | Heliolisk   |
+|            4 | Rock     | Aurorus     |
+|            4 | Rock     | Tyrantrum   |
+|            8 | Bug      | Yanmega     |
+|           15 | Ghost    | Spiritomb   |
+|           12 | Dark     | Vullaby     |
+|           12 | Dark     | Zoroark     |
+|            3 | Grass    | Amoonguss   |
+|            2 | Water    | Tympole     |
+|            2 | Water    | Piplup      |
+|            2 | Water    | Empoleon    |
+|            1 | Normal   | Furfrou     |
+|           14 | Psychic  | Solosis     |
+|            8 | Bug      | Larvesta    |
+|            3 | Grass    | Foongus     |
+|           15 | Ghost    | Litwick     |
+|           15 | Ghost    | Yamask      |
+|           14 | Psychic  | Gothitelle  |
+|           14 | Psychic  | Reuniclus   |
+|           13 | Fighting | Pancham     |
+|            5 | Fire     | Litleo      |
+|            3 | Grass    | Skiddo      |
+|            1 | Normal   | Rufflet     |
+|            8 | Bug      | Karrablast  |
+|           14 | Psychic  | Lugia       |
+|            4 | Rock     | Binacle     |
+|            7 | Poison   | Skrelp      |
+|           12 | Dark     | Malamar     |
+|           10 | Dragon   | Zekrom      |
+|           10 | Dragon   | Reshiram    |
+|            1 | Normal   | Happiny     |
+|           12 | Dark     | Zweilous    |
+|           15 | Ghost    | Trevenant   |
+|           16 | Fairy    | Swirlix     |
+|            8 | Bug      | Spewpa     |
++--------------+----------+-------------
+656 rows in set (0.00 sec)
+
+
+2.
+mysql> Select p.name, t.name from pokemons AS p inner join types as t on p.secondary_type = t.id where
+p.name = "Rufflet";
++---------+--------+
+| name    | name   |
++---------+--------+
+| Rufflet | Flying |
++---------+--------+
+1 row in set (0.02 sec)
+
+3.
+mysql> select pokemon_trainer.trainerID, pokemons.name, pokemons.id from pokemon_trainer join pokemons on pokemon_trainer.pokemon_id = pokemons.id where trainerID = 303;
++-----------+-----------+----+
+| trainerID | name      | id |
++-----------+-----------+----+
+|       303 | Wailord   |  2 |
+|       303 | Vileplume |  3 |
++-----------+-----------+----+
+2 rows in set (0.04 sec)
+
+4. 
+mysql> select count(*), types.name from pokemons join types on pokemons.secondary_type = types.id where types.name="Poison" group by types.name;
++----------+--------+
+| count(*) | name   |
++----------+--------+
+|       31 | Poison |
++----------+--------+
+1 row in set (0.01 sec)
+
+5.
+mysql> select count(*), pokemons.primary_type, types.name from pokemons join types on pokemons.primary_type=types.id group by primary_type, types.name order by primary_type DESC;
++----------+--------------+----------+
+| count(*) | primary_type | name     |
++----------+--------------+----------+
+|        1 |           18 | Flying   |
+|       22 |           17 | Ice      |
+|       14 |           16 | Fairy    |
+|       19 |           15 | Ghost    |
+|       38 |           14 | Psychic  |
+|       25 |           13 | Fighting |
+|       24 |           12 | Dark     |
+|       19 |           11 | Steel    |
+|       22 |           10 | Dragon   |
+|       35 |            9 | Electric |
+|       61 |            8 | Bug      |
+|       27 |            7 | Poison   |
+|       29 |            6 | Ground   |
+|       38 |            5 | Fire     |
+|       38 |            4 | Rock     |
+|       59 |            3 | Grass    |
+|       95 |            2 | Water    |
+|       90 |            1 | Normal   |
++----------+--------------+----------+
+18 rows in set (0.00 sec)
+
+6.
+
+mysql> select count(*), pokemon_trainer.pokelevel from pokemon_trainer join trainers on pokemon_trainer.pokemon_id = trainers.trainerID where pokemon_trainer.pokelevel = 100 group by pokemon_trainer.pokel
+evel;
++----------+-----------+
+| count(*) | pokelevel |
++----------+-----------+
+|      963 |       100 |
++----------+-----------+
+1 row in set (0.03 sec)
+
+
+7.
+
+mysql> select pokemon_ID, count(pokemon_ID) from pokemon_trainer group by pokemon_ID having count(pokemon_ID) = 1;
++------------+-------------------+
+| pokemon_ID | count(pokemon_ID) |
++------------+-------------------+
+|        592 |                 1 |
+|        593 |                 1 |
+|        606 |                 1 |
+|        644 |                 1 |
+|        646 |                 1 |
+|        647 |                 1 |
+|        649 |                 1 |
+|        650 |                 1 |
+|        651 |                 1 |
+|        652 |                 1 |
+|        653 |                 1 |
+|        655 |                 1 |
+|        656 |                 1 |
++------------+-------------------+
+13 rows in set (0.06 sec)
+
+
+8.
+
+select trainers.trainername, pokemons.name, pokemon_trainer.pokelevel, p_types.name, s_types.name from pokemons join types p_types
+ on pokemons.primary_type = p_types.id Left join types s_types
+ on pokemons.secondary_type = s_types.id join pokemon_trainer
+ on pokemons.id = pokemon_trainer.pokemon_id
+ join trainers on pokemon_trainer.trainerID = trainers.trainerid order by maxhp & attack & defense & spatk & speed desc;
+
+// sorted by the max health, attack, defense, special attack and speed
+// if a pokemon can have the first move with a strong attack and special attack and take a lot of attacks it should be strongest pokemon and in this case
+// the strongest pokemon trainer in this list is Boss Trainer Iria with a moltres
+
